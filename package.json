@@ -21,7 +21,10 @@
     "babel-preset-shopify": "^16.2.0",
     "eslint-plugin-shopify": "^19.0.0",
     "stylelint-config-prettier": "^3.0.4",
-    "stylelint-config-shopify": "^5.0.0"
+    "stylelint-config-shopify": "^5.0.0",
+    "vue": "^2.5.22",
+    "vue-loader": "^15.5.1",
+    "vue-template-compiler": "^2.5.22"
   },
   "dependencies": {
     "@shopify/theme-a11y": "^1.0.1",
@@ -42,8 +45,8 @@
     "start": "slate-tools start",
     "watch": "slate-tools start --skipFirstDeploy",
     "build": "slate-tools build",
-    "deploy": "slate-tools build && slate-tools deploy",
-    "zip": "slate-tools build && slate-tools zip",
+    "deploy": "npm run build && slate-tools deploy",
+    "zip": "npm run build && slate-tools zip",
     "lint": "slate-tools lint",
     "format": "slate-tools format"
   },
