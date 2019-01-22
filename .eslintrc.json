@@ -1,0 +1,25 @@
+{
+  "plugins": ["import"],
+  "globals": {
+    "document": true,
+    "window": true
+  },
+  "rules": {
+    "no-unused-expressions": 1,
+    "no-unused-vars": 1,
+    "no-new": 1,
+    "no-useless-escape": 1
+  },
+  "env": {
+    "es6": true,
+    "amd": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2016,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  }
+}

@@ -1,4 +1,12 @@
 {
-  "presets": ["shopify/web"],
-  "plugins": ["transform-async-to-generator"]
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 5 versions", "ie >= 10"]
+        }
+      }
+    ]
+  ]
 }
