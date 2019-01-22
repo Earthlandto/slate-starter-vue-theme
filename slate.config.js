@@ -3,7 +3,7 @@
 // Configuration file for all things Slate.
 // For more information, visit https://github.com/Shopify/slate/wiki/Slate-Configuration
 
-// const path = require('path');
+const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -15,6 +15,7 @@ module.exports = {
     resolve: {
       alias: {
         vue: 'vue/dist/vue.common.js',
+        '@vue': path.join(__dirname, 'src/vue'),
       },
     },
     module: {

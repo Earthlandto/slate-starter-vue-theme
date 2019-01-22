@@ -26,7 +26,7 @@ if (cookiesEnabled) {
 
 Vue.component(
   'vue-test-component',
-  require('../../vue/components/VueTestComponent.vue').default
+  require('@vue/components/VueTestComponent.vue').default
 );
 
 const app = new Vue({
