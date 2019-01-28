@@ -24,11 +24,11 @@ if (cookiesEnabled) {
   );
 }
 
-Vue.component(
-  'vue-test-component',
-  require('@vue/components/VueTestComponent.vue').default
-);
+import VueTestComponent from '@vue/components/VueTestComponent.vue';
 
 const app = new Vue({
   el: '#app',
+  components: {
+    VueTestComponent,
+  },
 });
