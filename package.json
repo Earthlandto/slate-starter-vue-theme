@@ -51,7 +51,8 @@
     "deploy": "npm run build && slate-tools deploy",
     "zip": "npm run build && slate-tools zip",
     "lint": "slate-tools lint",
-    "format": "slate-tools format"
+    "format": "slate-tools format",
+    "update-cert": "chmod +x ./ssl-check.sh && ./ssl-check.sh"
   },
   "homepage": "https://github.com/Shopify/starter-theme#readme",
   "main": "slate.config.js"
