@@ -24,28 +24,30 @@ module.exports = {
           test: /^[^\.]+\.css$/,
           use: [
             {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: isProduction,
+              },
+            },
+
+            {
               loader: 'style-loader',
               options: {
-                sourceMap: !isProduction,
+                sourceMap: isProduction,
               },
             },
             {
               loader: 'css-loader',
               options: {
-                sourceMap: !isProduction,
+                sourceMap: isProduction,
                 importLoaders: 1,
               },
             },
+
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: !isProduction,
-              },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: !isProduction,
+                sourceMap: isProduction,
               },
             },
           ],
@@ -63,10 +65,12 @@ module.exports = {
     },
     plugins: [new VueLoaderPlugin()],
   },
+  // Enabling sourcemaps in styles when using Hot Module Reloading causes
+  // style-loader to inject styles using a <link> tag instead of <style> tag.
+  // This causes a FOUC content, which can cause issues with JS that is reading
+  // the DOM for styles (width, height, visibility) on page load.
+  'webpack.sourceMap.styles': isProduction,
+
   // Object which contains entrypoints used in webpack's config.entry key
   //'webpack.entrypoints': {},
 };
-
-// useful:
-// https://github.com/Shopify/slate/issues/871
-// https://github.com/liron-navon/slate-vue-starter
