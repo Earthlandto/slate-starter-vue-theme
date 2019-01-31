@@ -1,7 +1,7 @@
 #!/bin/sh
 
 function ssl_check() {
-    f=~/.localhost_ssl;
+    f=./certs;
     ssl_crt=$f/server.crt
     ssl_key=$f/server.key
     b=$(tput bold)

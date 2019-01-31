@@ -8,9 +8,23 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const customSlateConfiguration = {
+  // Path to self-signed SSL key which is used when developing
+  // (browsersync, asset server) to avoid browsers rejecting requests based
+  // on SSL
+  'ssl.key': path.resolve(__dirname, 'certs', 'server.key'),
+  // Path to self-signed SSL certificate which is used when developing
+  // (browsersync, asset server) to avoid browsers rejecting requests based
+  // on SSL
+  'ssl.cert': path.resolve(__dirname, 'certs', 'server.crt'),
+};
+
 module.exports = {
+  ...customSlateConfiguration,
   // An array of string paths to liquid files that associate css variables to liquid variables
   'cssVarLoader.liquidPath': ['src/snippets/css-variables.liquid'],
+  // Extends webpack development config using 'webpack-merge'
+  // https://www.npmjs.com/package/webpack-merge
   'webpack.extend': {
     resolve: {
       alias: {
@@ -43,7 +57,6 @@ module.exports = {
                 importLoaders: 1,
               },
             },
-
             {
               loader: 'postcss-loader',
               options: {
@@ -63,7 +76,9 @@ module.exports = {
         },
       ],
     },
-    plugins: [new VueLoaderPlugin()],
+    plugins: [
+      new VueLoaderPlugin(),
+    ],
   },
   // Enabling sourcemaps in styles when using Hot Module Reloading causes
   // style-loader to inject styles using a <link> tag instead of <style> tag.
