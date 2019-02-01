@@ -5,6 +5,7 @@
 
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -78,7 +79,18 @@ module.exports = {
     },
     plugins: [
       new VueLoaderPlugin(),
+      new CopyWebpackPlugin([
+        {
+          from: 'svgs',
+          to: '../snippets/[name].[ext].liquid',
+          toType: 'template',
+        },
+      ]),
     ],
+
+    // output: {
+    //   path: path.join(__dirname),
+    // },
   },
   // Enabling sourcemaps in styles when using Hot Module Reloading causes
   // style-loader to inject styles using a <link> tag instead of <style> tag.
