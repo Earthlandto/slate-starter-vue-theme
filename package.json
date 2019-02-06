@@ -50,6 +50,7 @@
     "watch": "slate-tools start --skipFirstDeploy",
     "build": "slate-tools build",
     "deploy": "npm run build && slate-tools deploy",
+    "deploy:replace": "npm run build && slate-tools deploy --replace",
     "zip": "npm run build && slate-tools zip",
     "lint": "slate-tools lint",
     "format": "slate-tools format",
