@@ -8,6 +8,19 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TSClonerPlugin = require('./webpack_plugins/tscloner-plugin');
 
+
+const tsclonerRootPath = 'src/config/tscloner';
+const tsclonerPaths = {
+  configPath: path.resolve(__dirname, tsclonerRootPath, 'tscloner.config.json'),
+  sectionsFullPath: path.resolve(
+    __dirname,
+    tsclonerRootPath,
+    'sections_placeholders'
+  ),
+  assetsTemplatesPath: '../templates',
+  assetsSectionsPath: '../sections',
+};
++
 const isProduction = process.env.NODE_ENV === 'production';
 
 const customSlateConfiguration = {
@@ -83,18 +96,7 @@ const webpackExtendedConfiguration = {
         toType: 'template',
       },
     ]),
-    new TSClonerPlugin({
-      configPath: path.resolve(
-        __dirname,
-        'src/config/tscloner/tscloner.config.json'
-      ),
-      sectionsFullPath: path.resolve(
-        __dirname,
-        'src/config/tscloner/sections_placeholders'
-      ),
-      assetsTemplatesPath: '../templates',
-      assetsSectionsPath: '../sections',
-    }),
+    new TSClonerPlugin(tsclonerPaths),
   ],
   // output: {
   //   path: path.join(__dirname),
