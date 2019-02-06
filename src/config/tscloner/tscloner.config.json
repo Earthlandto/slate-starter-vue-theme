@@ -1,0 +1,22 @@
+{
+  "sections": [
+    {
+      "name": "section-brand-bar",
+      "cloneFrom": "_builder"
+    },
+    {
+      "name": "section-limited-edition",
+      "cloneFrom": "_builder"
+    }
+  ],
+  "templates": [
+    {
+      "name": "collection.new-in",
+      "sections": ["section-brand-bar"]
+    },
+    {
+      "name": "page.limited",
+      "sections": ["section-brand-bar", "section-limited-edition"]
+    }
+  ]
+}

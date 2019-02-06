@@ -6,6 +6,7 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TSClonerPlugin = require('./webpack_plugins/tscloner-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -82,6 +83,18 @@ const webpackExtendedConfiguration = {
         toType: 'template',
       },
     ]),
+    new TSClonerPlugin({
+      configPath: path.resolve(
+        __dirname,
+        'src/config/tscloner/tscloner.config.json'
+      ),
+      sectionsFullPath: path.resolve(
+        __dirname,
+        'src/config/tscloner/sections_placeholders'
+      ),
+      assetsTemplatesPath: '../templates',
+      assetsSectionsPath: '../sections',
+    }),
   ],
   // output: {
   //   path: path.join(__dirname),
