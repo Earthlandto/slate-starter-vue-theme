@@ -1,4 +1,4 @@
-const fs = require('fs');
+const { readFileSync } = require('fs');
 const { RawSource } = require('webpack-sources');
 
 const cachedSectionContents = {};
@@ -8,7 +8,7 @@ const getFileSectionContent = (sectionFileName = '', srcSectionsPath = '') => {
     return cachedSectionContents[sectionFileName];
   }
 
-  const sectionFileContent = fs.readFileSync(
+  const sectionFileContent = readFileSync(
     `${srcSectionsPath}/${sectionFileName}.liquid`,
     'utf8'
   );
@@ -63,7 +63,7 @@ class TSClonerPlugin {
 
   apply(compiler) {
     const tsclonerConfiguration = JSON.parse(
-      fs.readFileSync(this.configPath, 'utf8') || '{}'
+      readFileSync(this.configPath, 'utf8') || '{}'
     );
 
     compiler.hooks.emit.tapAsync('TSClonerPlugin', (compilation, callback) => {
