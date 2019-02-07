@@ -1,6 +1,18 @@
+const path = require('path');
 const { readFileSync } = require('fs');
 const { RawSource } = require('webpack-sources');
 
+const tsclonerRootPath = path.resolve('src', 'config', 'tscloner');
+const defaultOptions = {
+  configFolderPath: tsclonerRootPath,
+  sectionsPlaceholderPath: path.resolve(
+    tsclonerRootPath,
+    'sections_placeholders'
+  ),
+  configFileName: 'tscloner.config.json',
+  assetsTemplatesPath: '../templates',
+  assetsSectionsPath: '../sections',
+};
 const cachedSectionContents = {};
 
 const getFileSectionContent = (sectionFileName = '', srcSectionsPath = '') => {
@@ -36,7 +48,7 @@ const generateNewFilesInfo = (tsclonerConfiguration = {}, paths = {}) => {
       path: `${paths.assetsSectionsPath}/${sectionInfo.name}.liquid`,
       content: getFileSectionContent(
         sectionInfo.cloneFrom,
-        paths.sectionsFullPath
+        paths.sectionsPlaceholderPath
       ),
     });
   });
@@ -53,11 +65,20 @@ const generateNewFilesInfo = (tsclonerConfiguration = {}, paths = {}) => {
 
 class TSClonerPlugin {
   constructor(options) {
-    this.configPath = options.configPath;
+    const paths = {
+      ...defaultOptions,
+      ...options,
+    };
+
+    this.configPath = path.resolve(
+      paths.configFolderPath,
+      paths.configFileName
+    );
+
     this.srcPaths = {
-      assetsTemplatesPath: options.assetsTemplatesPath,
-      assetsSectionsPath: options.assetsSectionsPath,
-      sectionsFullPath: options.sectionsFullPath,
+      assetsTemplatesPath: paths.assetsTemplatesPath,
+      assetsSectionsPath: paths.assetsSectionsPath,
+      sectionsPlaceholderPath: paths.sectionsPlaceholderPath,
     };
   }
 
