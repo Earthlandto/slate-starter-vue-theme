@@ -79,7 +79,7 @@ const webpackExtendedConfiguration = {
     new CopyWebpackPlugin([
       {
         from: 'svgs',
-        to: '../snippets/[name].[ext].liquid',
+        to: '../snippets/icons.[name].[ext].liquid',
         toType: 'template',
       },
     ]),
