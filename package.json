@@ -57,8 +57,8 @@
     "lint": "slate-tools lint",
     "format": "slate-tools format",
     "update-cert": "chmod +x ./ssl-check.sh && ./ssl-check.sh",
-    "dev": "npm run watch",
-    "dev:deploy": "npm run start"
+    "dev": "npm run watch --",
+    "dev:deploy": "npm run start --"
   },
   "homepage": "https://github.com/Shopify/starter-theme#readme",
   "main": "slate.config.js"
