@@ -20,7 +20,8 @@ const customSlateConfiguration = {
   // on SSL
   'ssl.cert': path.resolve(__dirname, 'certs', 'server.crt'),
   // An array of string paths to liquid files that associate css variables to liquid variables
-  'cssVarLoader.liquidPath': ['src/snippets/css-variables.liquid'],
+  cssVarLoaderEnable: true,
+  'cssVarLoader.liquidPath': ['src/snippets/utils.css-variables.liquid'],
 };
 
 const webpackExtendedConfiguration = {
