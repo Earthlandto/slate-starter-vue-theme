@@ -13,8 +13,8 @@ upload
 deploy.log
 config/shopify.yml
 npm-debug.log
-.env
-.env.*
+*/**/.env
+*/**/.env.*
 certs
 .github
 

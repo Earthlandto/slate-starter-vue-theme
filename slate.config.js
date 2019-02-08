@@ -17,6 +17,9 @@ const glob = require('glob');
 const isProduction = process.env.NODE_ENV === 'production';
 
 const customSlateConfiguration = {
+  // Root directory to look for .env file
+  'env.rootDirectory': () => path.resolve(__dirname, 'envs-shopify'),
+
   // Path to self-signed SSL key which is used when developing
   // (browsersync, asset server) to avoid browsers rejecting requests based
   // on SSL
