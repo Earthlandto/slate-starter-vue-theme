@@ -5,8 +5,14 @@
 
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TSClonerPlugin = require('./webpack_plugins/tscloner-plugin');
+const ImageminPlugin = require('imagemin-webpack');
+const imageminGifsicle = require('imagemin-gifsicle');
+const imageminJpegtran = require('imagemin-jpegtran');
+const imageminOptipng = require('imagemin-optipng');
+const imageminSvgo = require('imagemin-svgo');
+const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
+const glob = require('glob');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -33,6 +39,14 @@ const webpackExtendedConfiguration = {
   },
   module: {
     rules: [
+      {
+        test: /\.(jpe?g|png|gif|svg|liquid)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
       {
         test: /^[^\.]+\.css$/,
         use: [
@@ -77,18 +91,61 @@ const webpackExtendedConfiguration = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new CopyWebpackPlugin([
-      {
-        from: 'svgs',
-        to: '../snippets/icons.[name].[ext].liquid',
-        toType: 'template',
-      },
-    ]),
     new TSClonerPlugin(),
+    new ImageminPlugin({
+      bail: false, // Ignore errors on corrupted images
+      cache: true,
+      name: '[name].[ext]',
+      // include: /\/*.liquid/,
+      imageminOptions: {
+        plugins: [
+          imageminGifsicle({
+            interlaced: true,
+          }),
+          imageminJpegtran({
+            progressive: true,
+          }),
+          imageminOptipng({
+            optimizationLevel: 5,
+          }),
+          imageminSvgo({
+            removeViewBox: true,
+          }),
+        ],
+      },
+    }),
+    new ImageminWebpackPlugin({
+      externalImages: {
+        context: 'src',
+        sources: glob.sync('src/svgs/*.svg'),
+        destination: 'dist/snippets',
+        fileName: 'icons.[name].[ext].liquid',
+      },
+      svgo: {
+        plugins: [
+          {
+            removeAttrs: {
+              attrs: 'class',
+            },
+          },
+          {
+            sortAttrs: true,
+          },
+          {
+            removeStyleElement: true,
+          },
+          {
+            removeScriptElement: true,
+          },
+          {
+            addAttributesToSVGElement: {
+              attribute: `class="c-icon {{ extra_classes }}" fill="{{ color }}"`,
+            },
+          },
+        ],
+      },
+    }),
   ],
-  // output: {
-  //   path: path.join(__dirname),
-  // },
 };
 
 module.exports = {
